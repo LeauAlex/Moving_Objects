@@ -9,7 +9,7 @@ video = cv2.VideoCapture(0) # number of camera recording, if you have a video fi
 times = []
 
 
-df = pandas.DataFrame(collumns = ["Start", "End"])
+df = pandas.DataFrame(columns=["Start", "End"])
 
 while True:
     check, frame = video.read()
@@ -36,6 +36,8 @@ while True:
 
     status_list.append(status)
 
+    status_list = status_list[-2:]
+
     if status_list[-1] == 1 and status_list [-2] == 0:
         times.append(datetime.now())
 
@@ -51,7 +53,7 @@ while True:
         break
 
 
-for i in range(0, len(times, 2)):
+for i in range(0, len(times)):
     df = df.append({"Start": times[i], "End":[i+1]}, ignore_index=True)
 
     df.to_csv("Times.csv")
